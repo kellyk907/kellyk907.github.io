@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kelly Kroeper, MPH CPH — Public Health Data & QI Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,700;1,400;1,500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  /*
+    ACCESSIBLE COLOR SYSTEM
+    Dark bg (#6B2D22) + cream text (#F7F2EB) = 8.2:1 contrast ✓
+    Cream bg (#F7F2EB) + dark text (#2C1810) = 12:1 contrast ✓
+    White cards (#FFF) + dark text (#2C1810) = 14:1 contrast ✓
+    Rose subtext on dark (#F0D0C8) = 6.1:1 contrast ✓
+  */
+  :root {
+    --dark:         #6B2D22;
+    --dark-text:    #F7F2EB;
+    --dark-sub:     #F0D0C8;
+    --dark-border:  rgba(240,208,200,0.25);
+
+    --cream:        #F7F2EB;
+    --cream-text:   #2C1810;
+    --cream-sub:    #7A5248;
+
+    --pale-rose:    #F5E8E4;
+    --pale-border:  #E2C0B8;
+
+    --rose:         #C4897A;
+    --rose-mid:     #A86455;
+    --sage:         #5C8A78;
+    --sage-light:   #9DBFB2;
+    --sage-pale:    #EAF0EC;
+
+    --card-bg:      #FFFFFF;
+    --card-border:  #EDD8D3;
+    --card-text:    #2C1810;
+    --card-sub:     #7A5248;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--cream-text);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+  }
+
+  /* HERO */
+  .hero {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    min-height: 100vh;
+  }
+
+  .hero-left {
+    background: var(--dark);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--dark-sub);
+    margin-bottom: 28px;
+    opacity: 0;
+    animation: up 0.7s ease forwards 0.2s;
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(44px, 5vw, 66px);
+    font-weight: 400;
+    line-height: 1.05;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+    opacity: 0;
+    animation: up 0.7s ease forwards 0.35s;
+  }
+
+  .hero-name em {
+    font-style: italic;
+    color: var(--dark-sub);
+  }
+
+  .hero-creds {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    color: var(--dark-sub);
+    margin-bottom: 40px;
+    opacity: 0;
+    animation: up 0.7s ease forwards 0.45s;
+  }
+
+  .hero-bio {
+    font-size: 15px;
+    line-height: 1.85;
+    color: var(--dark-text);
+    opacity: 0;
+    max-width: 420px;
+    margin-bottom: 40px;
+    animation: up 0.7s ease forwards 0.55s;
+  }
+
+  .hero-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    opacity: 0;
+    animation: up 0.7s ease forwards 0.65s;
+  }
+
+  .tag {
+    padding: 6px 16px;
+    border: 1px solid var(--dark-border);
+    border-radius: 100px;
+    font-size: 12px;
+    color: var(--dark-sub);
+  }
+
+  /* HERO RIGHT — pale rose, dark text, fully accessible */
+  .hero-right {
+    background: var(--pale-rose);
+    padding: 80px 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border-left: 4px solid var(--dark);
+  }
+
+  .contact-label {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--rose-mid);
+    margin-bottom: 32px;
+    opacity: 0;
+    animation: up 0.7s ease forwards 0.4s;
+  }
+
+  .contact-item {
+    margin-bottom: 22px;
+    opacity: 0;
+    animation: up 0.7s ease forwards;
+  }
+  .contact-item:nth-child(2){animation-delay:0.5s}
+  .contact-item:nth-child(3){animation-delay:0.6s}
+  .contact-item:nth-child(4){animation-delay:0.7s}
+  .contact-item:nth-child(5){animation-delay:0.8s}
+
+  .ci-label {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--rose-mid);
+    margin-bottom: 3px;
+  }
+
+  .ci-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 19px;
+    color: var(--cream-text);
+  }
+
+  .ci-value a {
+    color: var(--cream-text);
+    text-decoration: none;
+    border-bottom: 1px solid var(--pale-border);
+    transition: color 0.3s, border-color 0.3s;
+  }
+
+  .ci-value a:hover {
+    color: var(--dark);
+    border-color: var(--dark);
+  }
+
+  .divider {
+    width: 48px;
+    height: 2px;
+    background: var(--pale-border);
+    margin: 28px 0;
+    opacity: 0;
+    animation: up 0.7s ease forwards 0.9s;
+  }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 11px 20px;
+    background: var(--sage-pale);
+    border: 1px solid var(--sage-light);
+    border-radius: 100px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--sage);
+    opacity: 0;
+    animation: up 0.7s ease forwards 1.0s;
+  }
+
+  .dot {
+    width: 8px; height: 8px; min-width: 8px;
+    background: var(--sage);
+    border-radius: 50%;
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  /* SECTIONS */
+  .section { padding: 96px 80px; }
+  .section-cream  { background: var(--cream); }
+  .section-rose   { background: var(--pale-rose); }
+  .section-dark   { background: var(--dark); color: var(--dark-text); }
+
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    gap: 18px;
+    margin-bottom: 60px;
+  }
+
+  .sec-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 60px;
+    font-weight: 300;
+    font-style: italic;
+    line-height: 1;
+    color: var(--pale-border);
+  }
+
+  .section-dark .sec-num { color: var(--dark-border); }
+
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(26px, 3vw, 38px);
+    font-weight: 400;
+  }
+
+  /* PROJECT CARDS */
+  .grid-projects {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+  }
+
+  .card {
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 3px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: transform 0.35s, box-shadow 0.35s;
+  }
+
+  .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 18px 48px rgba(107,45,34,0.13);
+  }
+
+  .card-bar { height: 4px; }
+  .bar-a { background: linear-gradient(90deg, var(--dark), var(--rose)); }
+  .bar-b { background: linear-gradient(90deg, var(--sage), var(--sage-light)); }
+  .bar-c { background: linear-gradient(90deg, var(--dark), var(--sage)); }
+
+  .card-inner {
+    padding: 30px 26px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card-cat {
+    font-size: 10px;
+    font-weight: 500;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--rose-mid);
+    margin-bottom: 12px;
+  }
+
+  .card-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 19px;
+    font-weight: 500;
+    line-height: 1.35;
+    color: var(--card-text);
+    margin-bottom: 12px;
+  }
+
+  .card-desc {
+    font-size: 14px;
+    line-height: 1.8;
+    color: var(--card-sub);
+    margin-bottom: 18px;
+    flex: 1;
+  }
+
+  .card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 7px;
+    margin-bottom: 22px;
+  }
+
+  .ctag {
+    padding: 4px 11px;
+    background: var(--pale-rose);
+    border: 1px solid var(--pale-border);
+    border-radius: 100px;
+    font-size: 11px;
+    color: var(--card-sub);
+  }
+
+  .card-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 16px;
+    border-top: 1px solid var(--card-border);
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--dark);
+    text-decoration: none;
+    transition: gap 0.3s;
+  }
+
+  .card-link:hover { gap: 14px; }
+
+  /* EXPERTISE */
+  .grid-expertise {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 2px;
+  }
+
+  .exp-item {
+    padding: 34px 30px;
+    background: rgba(255,255,255,0.07);
+    border: 1px solid var(--dark-border);
+    transition: background 0.3s;
+  }
+
+  .exp-item:hover { background: rgba(255,255,255,0.13); }
+
+  .exp-icon {
+    font-size: 22px;
+    color: var(--dark-sub);
+    margin-bottom: 16px;
+  }
+
+  .exp-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 500;
+    color: var(--dark-text);
+    margin-bottom: 10px;
+  }
+
+  .exp-desc {
+    font-size: 13px;
+    line-height: 1.8;
+    color: var(--dark-sub);
+  }
+
+  /* CREDENTIALS */
+  .grid-creds {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  .cred {
+    padding: 30px;
+    background: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-left: 4px solid var(--dark);
+    border-radius: 2px;
+  }
+
+  .cred-deg {
+    font-family: 'Playfair Display', serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--card-text);
+    margin-bottom: 6px;
+  }
+
+  .cred-school {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 16px;
+    font-style: italic;
+    color: var(--card-sub);
+  }
+
+  /* FOOTER */
+  .footer {
+    background: var(--dark);
+    padding: 52px 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-top: 3px solid var(--dark-border);
+  }
+
+  .footer-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 22px;
+    font-style: italic;
+    color: var(--dark-text);
+  }
+
+  .footer-links { display: flex; gap: 28px; }
+
+  .footer-link {
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--dark-sub);
+    text-decoration: none;
+    transition: color 0.3s;
+  }
+
+  .footer-link:hover { color: var(--dark-text); }
+
+  /* ANIMATIONS */
+  @keyframes up {
+    from { opacity:0; transform:translateY(18px); }
+    to   { opacity:1; transform:translateY(0); }
+  }
+
+  @keyframes pulse {
+    0%,100% { opacity:1; transform:scale(1); }
+    50%      { opacity:0.5; transform:scale(0.8); }
+  }
+
+  @media (max-width:860px) {
+    .hero { grid-template-columns:1fr; }
+    .hero-left,.hero-right { padding:56px 32px; min-height:auto; }
+    .section { padding:64px 32px; }
+    .grid-creds { grid-template-columns:1fr; }
+    .footer { flex-direction:column; gap:20px; text-align:center; padding:44px 32px; }
+    .footer-links { flex-wrap:wrap; justify-content:center; }
+  }
+</style>
+</head>
+<body>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow">Public Health Data &amp; Quality Improvement</div>
+    <h1 class="hero-name">Kelly<br><em>Kroeper</em></h1>
+    <div class="hero-creds">MPH, CPH &mdash; Quality Improvement Analyst</div>
+    <p class="hero-bio">I build the data systems, QA frameworks, and analytical tools that help health organizations understand their own numbers &mdash; and act on them. My work sits at the intersection of population health, managed care optimization, and rigorous quality measurement.</p>
+    <div class="hero-tags">
+      <span class="tag">Managed Care QI</span>
+      <span class="tag">Risk Stratification</span>
+      <span class="tag">PDSA Methodology</span>
+      <span class="tag">Population Health</span>
+      <span class="tag">Health Equity</span>
+      <span class="tag">Bilingual EN/ES</span>
+    </div>
+  </div>
+
+  <div class="hero-right">
+    <div class="contact-label">Get in touch</div>
+    <div class="contact-item">
+      <div class="ci-label">Email</div>
+      <div class="ci-value"><a href="mailto:kroeper.kelly@gmail.com">kroeper.kelly@gmail.com</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="ci-label">LinkedIn</div>
+      <div class="ci-value"><a href="https://linkedin.com/in/kroeperk" target="_blank">linkedin.com/in/kroeperk</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="ci-label">GitHub</div>
+      <div class="ci-value"><a href="https://github.com/kellyk907" target="_blank">github.com/kellyk907</a></div>
+    </div>
+    <div class="contact-item">
+      <div class="ci-label">Location</div>
+      <div class="ci-value">Eastern Time &middot; Fully Remote</div>
+    </div>
+    <div class="divider"></div>
+    <div class="badge">
+      <div class="dot"></div>
+      Open to remote QI roles
+    </div>
+  </div>
+</section>
+
+<section class="section section-cream">
+  <div class="section-head">
+    <div class="sec-num">01</div>
+    <h2 class="sec-title">Independent Projects</h2>
+  </div>
+  <div class="grid-projects">
+
+    <div class="card">
+      <div class="card-bar bar-c"></div>
+      <div class="card-inner">
+        <div class="card-cat">QI Methodology &middot; Managed Care</div>
+        <div class="card-title">PDSA-Driven QI Framework: From Risk to Action</div>
+        <p class="card-desc">Applied IHE Model for Improvement and PDSA methodology to CDC PLACES data across 2,957 U.S. counties. Includes fishbone root cause analysis, SMART aim statements, and three iterative improvement cycles targeting preventable ED utilization in high-risk managed care populations.</p>
+        <div class="card-tags">
+          <span class="ctag">PDSA Cycles</span><span class="ctag">IHE Model</span><span class="ctag">CDC PLACES</span><span class="ctag">Root Cause Analysis</span><span class="ctag">Managed Care</span>
+        </div>
+        <a href="https://qihighrisk.netlify.app" target="_blank" class="card-link">View Live Project &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-bar bar-a"></div>
+      <div class="card-inner">
+        <div class="card-cat">Risk Stratification &middot; Population Health</div>
+        <div class="card-title">County-Level Risk Stratification for Managed Care</div>
+        <p class="card-desc">Weighted composite risk model integrating chronic disease burden (60%) and SDOH indicators (40%) across 2,957 U.S. counties. Segments counties into High/Medium/Low risk tiers to support geographic care management deployment and value-based contracting strategy.</p>
+        <div class="card-tags">
+          <span class="ctag">Risk Modeling</span><span class="ctag">SDOH</span><span class="ctag">Value-Based Care</span><span class="ctag">CDC PLACES</span><span class="ctag">GIS</span>
+        </div>
+        <a href="https://county-level-risk.netlify.app" target="_blank" class="card-link">View Live Project &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-bar bar-b"></div>
+      <div class="card-inner">
+        <div class="card-cat">Healthcare Training &middot; Dashboard Literacy</div>
+        <div class="card-title">ClinicOps Insights: Healthcare Quality Training</div>
+        <p class="card-desc">Four-module interactive healthcare quality training program covering clinic performance metrics, key quality indicators, operational red flag identification, and data-to-action decision-making. Built in Figma with progress tracking and confidence rating system.</p>
+        <div class="card-tags">
+          <span class="ctag">Healthcare QI</span><span class="ctag">Figma</span><span class="ctag">Training Design</span><span class="ctag">Dashboard Literacy</span>
+        </div>
+        <a href="https://www.figma.com/design/nZMvQP0ntKkRDXkZuRT3Fq/ClinicOps-Learning-%E2%80%94-Healthcare-Dashboard-Literacy" target="_blank" class="card-link">View Figma Prototype &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-bar bar-b"></div>
+      <div class="card-inner">
+        <div class="card-cat">Program Evaluation &middot; Global Health</div>
+        <div class="card-title">India Child Wellbeing Dashboard</div>
+        <p class="card-desc">Interactive program evaluation dashboard analyzing child nutrition outcomes across three NFHS survey rounds (2005&ndash;2021) using data from 636,000 households across 36 Indian states. Features trend analysis, state comparisons, and urban/rural stratification.</p>
+        <div class="card-tags">
+          <span class="ctag">NFHS-5</span><span class="ctag">MCH</span><span class="ctag">Program Evaluation</span><span class="ctag">Health Equity</span>
+        </div>
+        <a href="https://india-child-wellbeing.netlify.app" target="_blank" class="card-link">View Live Dashboard &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-bar bar-a"></div>
+      <div class="card-inner">
+        <div class="card-cat">Maternal Health &middot; Trend Analysis</div>
+        <div class="card-title">Maternal Mortality Trend Analysis: NJ vs. US</div>
+        <p class="card-desc">Analysis of maternal mortality trends comparing New Jersey to national rates (2018&ndash;2024) using CDC data. Identifies COVID-19 divergence patterns and tracks subsequent state-level improvements relative to national benchmarks.</p>
+        <div class="card-tags">
+          <span class="ctag">Maternal Health</span><span class="ctag">CDC Data</span><span class="ctag">Python</span><span class="ctag">Data Visualization</span>
+        </div>
+        <a href="https://github.com/kellyk907/maternal_mortality_nj_us" target="_blank" class="card-link">View on GitHub &rarr;</a>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-bar bar-c"></div>
+      <div class="card-inner">
+        <div class="card-cat">Medicare &middot; Utilization Analysis</div>
+        <div class="card-title">CMS Medicare Outpatient Utilization Analysis</div>
+        <p class="card-desc">Analysis of Medicare outpatient utilization patterns by service type using CMS Program Statistics data. Identifies highest-volume service categories to support resource allocation and care management decision-making.</p>
+        <div class="card-tags">
+          <span class="ctag">CMS Data</span><span class="ctag">Medicare</span><span class="ctag">Utilization</span><span class="ctag">Python</span>
+        </div>
+        <a href="https://github.com/kellyk907/output_util_by_service_CMS" target="_blank" class="card-link">View on GitHub &rarr;</a>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section section-dark">
+  <div class="section-head">
+    <div class="sec-num">02</div>
+    <h2 class="sec-title">Areas of Expertise</h2>
+  </div>
+  <div class="grid-expertise">
+    <div class="exp-item">
+      <div class="exp-icon">◈</div>
+      <div class="exp-title">Quality Improvement</div>
+      <p class="exp-desc">PDSA methodology, IHE Model for Improvement, root cause analysis, SMART aim development, fishbone frameworks, and iterative QI cycle implementation.</p>
+    </div>
+    <div class="exp-item">
+      <div class="exp-icon">◈</div>
+      <div class="exp-title">Population Health Analytics</div>
+      <p class="exp-desc">Risk stratification, SDOH integration, chronic disease burden analysis, health equity measurement, and geographic care management modeling.</p>
+    </div>
+    <div class="exp-item">
+      <div class="exp-icon">◈</div>
+      <div class="exp-title">Data Validation &amp; QA</div>
+      <p class="exp-desc">Pipeline design, automated quality checks, data integrity protocols, error detection, and documentation standards for high-volume public health datasets.</p>
+    </div>
+    <div class="exp-item">
+      <div class="exp-icon">◈</div>
+      <div class="exp-title">Health Data Reporting</div>
+      <p class="exp-desc">Stakeholder dashboards in Power BI and Tableau, CDC WONDER analysis, CMS data interpretation, and performance reporting for clinical and operational audiences.</p>
+    </div>
+    <div class="exp-item">
+      <div class="exp-icon">◈</div>
+      <div class="exp-title">Program Evaluation</div>
+      <p class="exp-desc">Logic model development, indicator design, NFHS and CDC data analysis, MCH outcome measurement, and evidence-based program improvement frameworks.</p>
+    </div>
+    <div class="exp-item">
+      <div class="exp-icon">◈</div>
+      <div class="exp-title">Technical Stack</div>
+      <p class="exp-desc">Python &middot; SAS &middot; SQL &middot; Power BI &middot; Tableau &middot; Excel &middot; Looker &middot; Jupyter Notebooks &middot; Figma &middot; GitHub &middot; Netlify</p>
+    </div>
+  </div>
+</section>
+
+<section class="section section-rose">
+  <div class="section-head">
+    <div class="sec-num">03</div>
+    <h2 class="sec-title">Education &amp; Credentials</h2>
+  </div>
+  <div class="grid-creds">
+    <div class="cred">
+      <div class="cred-deg">Master of Public Health (MPH)</div>
+      <div class="cred-school">University of South Florida</div>
+    </div>
+    <div class="cred">
+      <div class="cred-deg">Certified in Public Health (CPH)</div>
+      <div class="cred-school">National Board of Public Health Examiners</div>
+    </div>
+    <div class="cred">
+      <div class="cred-deg">Full Stack Web Development</div>
+      <div class="cred-school">Skillcrush &mdash; Certificate Program</div>
+    </div>
+    <div class="cred">
+      <div class="cred-deg">Bachelor of Arts, History</div>
+      <div class="cred-school">Rutgers University &middot; Phi Alpha Theta</div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-name">Kelly Kroeper</div>
+  <div class="footer-links">
+    <a href="mailto:kroeper.kelly@gmail.com" class="footer-link">Email</a>
+    <a href="https://linkedin.com/in/kroeperk" target="_blank" class="footer-link">LinkedIn</a>
+    <a href="https://github.com/kellyk907" target="_blank" class="footer-link">GitHub</a>
+  </div>
+</footer>
+
+</body>
+</html>
